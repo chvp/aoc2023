@@ -3,34 +3,22 @@
 #include "../lib/input.h"
 
 char *digits[] = {
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "zero",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine"
+  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+};
+
+size_t lengths[] = {
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  4, 3, 3, 3, 4, 4, 3, 5, 5, 4
 };
 
 int get_number(char* line) {
+  size_t llen = strlen(line);
   int first_digit = -1;
   int last_digit = -1;
-  for (int i = 0; i < strlen(line); i++) {
+  for (int i = 0; i < llen; i++) {
     for (int j = 0; j < 20; j++) {
-      if (memcmp(line + i, digits[j], strlen(digits[j])) == 0) {
+      if (llen - i >= lengths[j] && memcmp(line + i, digits[j], lengths[j]) == 0) {
         if (first_digit == -1) {
           first_digit = j % 10;
         }
