@@ -9,7 +9,7 @@ char *digits[] = {
 
 size_t lengths[] = {
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  4, 3, 3, 3, 4, 4, 3, 5, 5, 4
+  4, 3, 3, 5, 4, 4, 3, 5, 5, 4
 };
 
 int get_number(char* line) {
