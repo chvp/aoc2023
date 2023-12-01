@@ -2,40 +2,59 @@
 
 #include "../lib/input.h"
 
-void update_maxs(int* maxs, int new) {
-  if (new > maxs[0]) {
-      maxs[2] = maxs[1];
-      maxs[1] = maxs[0];
-      maxs[0] = new;
-    } else if (new > maxs[1]) {
-      maxs[2] = maxs[1];
-      maxs[1] = new;
-    } else if (new > maxs[2]) {
-      maxs[2] = new;
+char *digits[] = {
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine"
+};
+
+int get_number(char* line) {
+  int first_digit = -1;
+  int last_digit = -1;
+  for (int i = 0; i < strlen(line); i++) {
+    for (int j = 0; j < 20; j++) {
+      if (memcmp(line + i, digits[j], strlen(digits[j])) == 0) {
+        if (first_digit == -1) {
+          first_digit = j % 10;
+        }
+        last_digit = j % 10;
+      }
     }
+  }
+  return 10 * first_digit + last_digit;
 }
 
 int main(int argc, char** argv) {
   FILE* input = get_file(argc, argv);
 
-  int maxs[] = {0, 0, 0};
-  int curr = 0;
-
   char *line = NULL;
   size_t len = 0;
   ssize_t read = 0;
+
+  int sum = 0;
   while ((read = getline(&line, &len, input)) != -1) {
-    if (strlen(line) > 1) {
-      curr += atoi(line);
-    } else {
-      update_maxs(maxs, curr);
-      curr = 0;
-    }
+    sum += get_number(line);
   }
-  update_maxs(maxs, curr);
   free(line);
 
-  printf("%d\n", maxs[2] + maxs[1] + maxs[0]);
+  printf("%d\n", sum);
 
   return 0;
 }
