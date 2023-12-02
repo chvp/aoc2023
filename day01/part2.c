@@ -34,10 +34,9 @@ int main(int argc, char** argv) {
 
   char *line = NULL;
   size_t len = 0;
-  ssize_t read = 0;
 
   int sum = 0;
-  while ((read = getline(&line, &len, input)) != -1) {
+  while (getline(&line, &len, input) != -1) {
     sum += get_number(line);
   }
   free(line);
