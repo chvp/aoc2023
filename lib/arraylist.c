@@ -16,6 +16,15 @@ void arraylist_add(arraylist *l, long val) {
   l->buffer[l->count++] = val;
 }
 
+long arraylist_pop(arraylist *l) {
+  if (l->count == 0) {
+    printf("Popping empty list\n");
+    exit(2);
+  }
+  l->count--;
+  return l->buffer[l->count];
+}
+
 void arraylist_free(arraylist *l) {
   free(l->buffer);
   l->capacity = 0;
